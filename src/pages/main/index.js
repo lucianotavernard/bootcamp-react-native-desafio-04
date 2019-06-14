@@ -31,9 +31,7 @@ class Main extends Component {
   };
 
   componentDidMount() {
-    const { loadProductsRequest } = this.props;
-
-    loadProductsRequest(1);
+    this.handleProductsRefreshing();
   }
 
   handleProductPress = (product) => {
