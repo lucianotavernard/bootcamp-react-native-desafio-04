@@ -35,7 +35,6 @@ export const Cover = styled.Image.attrs({
 
 export const ProductInfo = styled.View`
   flex: 1;
-  height: 100px;
   padding: 10px;
 `;
 
@@ -55,6 +54,20 @@ export const Price = styled.Text`
   color: #37bea9;
   font-size: 12px;
   font-weight: bold;
+`;
+
+export const Input = styled.TextInput.attrs({
+  underlineColorAndroid: 'transparent',
+})`
+  width: 45px;
+  height: 30px;
+  margin: 0 5px;
+  padding: 5px;
+  border-width: 1px;
+  border-color: #ccc;
+  border-radius: 3px;
+  font-weight: bold;
+  color: #555;
 `;
 
 export const Button = styled.TouchableOpacity``;

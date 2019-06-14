@@ -16,6 +16,7 @@ import {
   Title,
   Brand,
   Price,
+  Input,
   Button,
   RemoveIcon,
   Subtotal,
@@ -37,6 +38,7 @@ class Cart extends Component {
       ),
     }).isRequired,
     total: PropTypes.number.isRequired,
+    updateAmount: PropTypes.func.isRequired,
     removeProduct: PropTypes.func.isRequired,
   };
 
@@ -44,6 +46,12 @@ class Cart extends Component {
     const { removeProduct } = this.props;
 
     removeProduct(id);
+  };
+
+  handleChangeAmount = (product, amount) => {
+    const { updateAmount } = this.props;
+
+    updateAmount(product.id, amount);
   };
 
   render() {
@@ -68,6 +76,15 @@ class Cart extends Component {
                   <Price>{`$ ${product.price}`}</Price>
                 </ProductInfo>
 
+                <Input
+                  maxLength={2}
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  keyboardType="numeric"
+                  value={String(product.amount)}
+                  onChangeText={text => this.handleChangeAmount(product, text)}
+                />
+
                 <Button onPress={() => this.handleRemoveProduct(product.id)}>
                   <RemoveIcon />
                 </Button>
@@ -87,7 +104,7 @@ class Cart extends Component {
 
 const mapStateToProps = ({ cart }) => ({
   cart,
-  total: cart.data.reduce((accu, curr) => accu + curr.price, 0),
+  total: cart.data.reduce((accu, curr) => accu + curr.price * curr.amount, 0),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch);
